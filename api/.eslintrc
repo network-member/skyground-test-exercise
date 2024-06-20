@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "ignorePatterns": [],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true,
+  },
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "plugins": ["import"],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "warnOnUnassignedImports": true,
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true,
+        },
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [{ "pattern": "~/**", "group": "internal", "position": "before" }],
+      },
+    ],
+    "no-empty-function": "off",
+    "no-unused-vars": "off",
+    "arrow-body-style": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+  },
+}
