@@ -1,5 +1,5 @@
 declare module '*.svg' {
-  let comp: import('react').FC
+  let comp: import('react').FC<import('react').SVGAttributes>
   export default comp
 }
 

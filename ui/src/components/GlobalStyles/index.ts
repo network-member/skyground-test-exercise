@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-import GlutenFont from '@root/fonts/Gluten-VariableFont-wght.ttf'
+import GlutenFont from '@/fonts/Gluten-VariableFont-wght.ttf'
 
 export const GlobalStyles = createGlobalStyle`
 @font-face {

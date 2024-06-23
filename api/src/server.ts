@@ -14,7 +14,7 @@ import { errorsHandler } from './middleware'
 async function start() {
   const app = express()
 
-  app.use(cors())
+  app.use(cors({ origin: config.allowedDomains, credentials: true }))
   app.use(morgan(':date[iso] :method :url :status :res[content-length] - :response-time ms'))
   app.use(bodyParser.json())
   app.use(cookieParser())

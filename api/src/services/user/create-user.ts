@@ -14,7 +14,7 @@ export async function createUser(
   const passwordHash = await bcrypt.hash(password, SALT_ROUNDS)
 
   const user = await dbClient.user.findUnique({ where: { email } })
-  if (user) throw new BadRequestError({ message: 'User with this email is already exist.' })
+  if (user) throw new BadRequestError({ message: 'User with this email already exists.' })
 
   return await dbClient.user.create({ data: { fullName, password: passwordHash, email } })
 }

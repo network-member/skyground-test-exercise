@@ -15,6 +15,7 @@ export function sendResponseWithAccessTokenCookie<T extends { accessToken: strin
     maxAge: REFRESH_TOKEN_EXPIRATION_TIME + 60,
     httpOnly: true,
     sameSite: 'none',
+    secure: true,
   }),
     res.send(sanitizeResponseBody(body))
 }

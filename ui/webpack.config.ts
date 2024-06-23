@@ -20,7 +20,6 @@ export const CONFIG = (env: {
     target: 'web',
     resolve: {
       alias: {
-        '@root': path.resolve(__dirname, '.'),
         '@': path.resolve(__dirname, 'src/'),
       },
       extensions: ['.tsx', '.ts', '...'],

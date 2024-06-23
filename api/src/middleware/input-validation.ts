@@ -11,9 +11,11 @@ function inputValidationMiddlewareFactory<T>(
   return function bodyValidationMiddleware(req: Request, _res: Response, next: NextFunction) {
     if (isEmpty(req[dataFieldKey])) throw new BadRequestError({ message: missingErrorMessage })
 
-    const { error } = schema.validate(req[dataFieldKey], { abortEarly: false })
-    if (!error) return next()
-    throw new BadRequestError({ details: error.details.map((e) => e.message) })
+    const { value, error } = schema.validate(req[dataFieldKey], { abortEarly: false })
+    if (error) throw new BadRequestError({ details: error.details.map((e) => e.message) })
+
+    req[dataFieldKey] = value
+    return next()
   }
 }
 
