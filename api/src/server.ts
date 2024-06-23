@@ -1,28 +1,29 @@
-import { PrismaClient } from '@prisma/client'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import 'dotenv/config'
-import express, { Request, Response } from 'express'
+import express from 'express'
 import morgan from 'morgan'
 import 'reflect-metadata'
 
-import { errorsHandler } from './middleware'
+import config from '~/config'
+import router from '~/controllers'
 
-const prisma = new PrismaClient()
+import { errorsHandler } from './middleware'
 
 async function start() {
   const app = express()
 
   app.use(cors())
   app.use(morgan(':date[iso] :method :url :status :res[content-length] - :response-time ms'))
-  app.get('/', async (_req: Request, res: Response) => {
-    const user = await prisma.user.findFirst()
-    res.send(user)
-  })
+  app.use(bodyParser.json())
+  app.use(cookieParser())
 
+  app.use(router)
   app.use(errorsHandler)
 
-  app.listen(process.env.PORT, () => {
-    console.log(`Application ready on port ${process.env.PORT}! 🚥`)
+  app.listen(config.port, () => {
+    console.log(`Application ready on port ${config.port}! 🚥`)
   })
 }
 

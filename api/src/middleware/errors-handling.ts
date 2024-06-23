@@ -1,16 +1,20 @@
-import { Request, Response, NextFunction } from 'express'
-import { getReasonPhrase, getStatusCode, StatusCodes, ReasonPhrases } from 'http-status-codes'
+import type { Request, Response, NextFunction } from 'express'
+import { StatusCodes, ReasonPhrases, getReasonPhrase } from 'http-status-codes'
+import { pick } from 'lodash'
 
-const REASON_PHRASE_TO_STATUS_CODE_MAP = Object.values(ReasonPhrases).reduce<Record<string, number>>(
-  (map, currentValue) => {
-    map[currentValue] = getStatusCode(currentValue)
-    return map
-  },
-  {},
-)
+import { ApiError } from '~/libs/errors'
 
-export function errorsHandler(err: Error, _req: Request, res: Response, _next: NextFunction): void {
-  const statusCode = REASON_PHRASE_TO_STATUS_CODE_MAP[err.message] ?? StatusCodes.INTERNAL_SERVER_ERROR
+export function errorsHandler(err: any, _req: Request, res: Response, _next: NextFunction) {
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).send({ errors: err.details.length ? err.details : [err.message] })
+  }
+
+  const { status, statusCode } = pick(err, ['status', 'statusCode'])
+  if (status || statusCode) {
+    const errorCode = status ?? statusCode
+    return res.status(errorCode).send({ errors: [getReasonPhrase(errorCode)] })
+  }
+
   console.error(err)
-  res.status(statusCode).send({ statusCode: statusCode, error: getReasonPhrase(statusCode) })
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ errors: [ReasonPhrases.INTERNAL_SERVER_ERROR] })
 }

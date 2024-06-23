@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": [],
+  "ignorePatterns": ["build"],
   "parserOptions": {
     "project": "./tsconfig.json",
     "createDefaultProgram": true,
@@ -30,6 +30,7 @@
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
   },
 }

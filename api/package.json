@@ -1,30 +1,47 @@
 {
-  "name": "express-sample",
+  "name": "skyground-test-exercise-api",
   "version": "1.0.0",
   "main": "src/server.ts",
   "author": "Vlad Kazantsev",
   "license": "MIT",
   "scripts": {
+    "migrations:generate-up": "prisma migrate dev --schema src/prisma/schema --create-only --name",
+    "migrations:generate-down": "npx prisma migrate diff --from-schema-datamodel src/prisma/schema --to-schema-datasource src/prisma/schema --script > down.sql",
+    "migrations:sync": "prisma migrate dev --schema src/prisma/schema",
+    "migrations:revert": "prisma db execute --file",
+    "migrations:deploy": "prisma migrate deploy --schema src/prisma/schema",
+    "migrations:mark-reverted": "prisma migrate resolve --rolled-back",
+    "prisma:generate-client": "prisma generate --schema src/prisma/schema",
     "dev": "nodemon -r tsconfig-paths/register ./src/server.ts",
-    "migrations:sync": "prisma migrate dev --schema src/prisma --name",
-    "prisma:generate-client": "prisma generate --schema src/prisma",
-    "start": "yarn build && TS_NODE_BASEURL=./build node -r tsconfig-paths/register ./build/src/server.js",
-    "build": "tsc --pretty",
+    "start": "yarn migrations:deploy && yarn build && TS_NODE_BASEURL=./build node -r tsconfig-paths/register ./build/src/server.js",
+    "build": "yarn prisma:generate-client && tsc --pretty",
     "check-types": "tsc --noEmit",
-    "postinstall": "husky"
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@prisma/client": "^5.15.1",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-jwt": "^8.4.1",
     "http-status-codes": "^2.3.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5",
+    "@types/body-parser": "^1",
+    "@types/cookie-parser": "^1",
     "@types/cors": "^2",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9",
+    "@types/lodash": "^4",
     "@types/morgan": "^1",
     "@types/node": "^20.14.6",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
@@ -47,6 +64,6 @@
     "yarn": "4.*"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma"
+    "schema": "src/prisma/schema/schema.prisma"
   }
 }
