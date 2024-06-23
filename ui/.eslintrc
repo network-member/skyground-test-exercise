@@ -1,0 +1,42 @@
+{
+  "extends": ["standard-react", "standard-with-typescript", "plugin:prettier/recommended"],
+  "ignorePatterns": ["node_modules/**", "build/**", ".yarn/**"],
+  "rules": {
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "curly": ["error", "multi-line"],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true,
+        },
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          { "pattern": "react", "group": "external", "position": "before" },
+          { "pattern": "@/**", "group": "internal", "position": "before" },
+          { "pattern": "@root/**", "group": "internal", "position": "before" },
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+      },
+    ],
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": 0,
+        "@typescript-eslint/triple-slash-reference": 0,
+        "@typescript-eslint/no-non-null-assertion": 0,
+        "@typescript-eslint/consistent-type-imports": ["error", { "disallowTypeAnnotations": false }],
+      },
+      "parserOptions": {
+        "project": "./tsconfig.json",
+        "sourceType": "module",
+        "createDefaultProgram": true,
+      },
+    },
+  ],
+}
