@@ -15,7 +15,8 @@
     "strict": true /* Enable all strict type-checking options. */,
     "strictNullChecks": false /* When type checking, take into account 'null' and 'undefined'. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "build"]
 }

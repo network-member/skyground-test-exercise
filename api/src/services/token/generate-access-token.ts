@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 import config from '~/config'
+
 const ACCESS_TOKEN_EXPIRATION_TIME = 5 * 60 // 5 minutes
 
 export function generateAccessToken(payload: { userId: number }) {
