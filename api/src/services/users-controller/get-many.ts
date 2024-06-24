@@ -13,5 +13,6 @@ export async function getMany(req: Request, res: Response) {
       id: 'asc',
     },
   })
-  res.send(sanitizeResponseBody(usersList))
+  const totalCount = await prismaClient.user.count()
+  res.send(sanitizeResponseBody({ items: usersList, totalCount }))
 }

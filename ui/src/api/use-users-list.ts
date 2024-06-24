@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+
 import axios from 'axios'
+
 import { useSoftLogout } from '@/hooks/use-soft-logout'
 
 import { privateApiClient } from './client'
@@ -11,7 +13,7 @@ interface Args {
   offset: number
 }
 
-interface Result {
+export interface UserDto {
   id: number
   email: string
   fullName: string
@@ -19,13 +21,18 @@ interface Result {
   updatedAt: string
 }
 
-export function useUsersList(paginationParams: Args): Result[] {
+interface Result {
+  items: UserDto[]
+  totalCount: number
+}
+
+export function useUsersList(paginationParams: Args): Result {
   const performSoftLogout = useSoftLogout()
-  const [users, setUsers] = useState<Result[]>([])
+  const [users, setUsers] = useState<Result>({ items: [], totalCount: 0 })
 
   useEffect(() => {
     privateApiClient
-      .get<Result[]>('/users', { params: paginationParams })
+      .get<Result>('/users', { params: paginationParams })
       .then(({ data }) => {
         setUsers(data)
       })

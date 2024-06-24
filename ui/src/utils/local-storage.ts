@@ -28,3 +28,10 @@ export function cleanUserInfo(): void {
   localStorage.removeItem('refreshToken')
   localStorage.removeItem('accessTokenExpiresIn')
 }
+
+export function getUserInfo(): { email: string; fullName: string } | null {
+  const user = localStorage.getItem('user')
+  if (!user) return null
+
+  return JSON.parse(user)
+}

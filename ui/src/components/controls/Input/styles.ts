@@ -1,12 +1,12 @@
+import { rgba } from 'polished'
 import styled from 'styled-components'
 
 export const Adornment = styled.div`
   text-align: center;
   padding: 8px 12px;
   line-height: 25px;
-  color: #99a3ba;
-  background: #eef4ff;
-  border: #cdd9ed;
+  background: ${(props) => rgba(props.theme.colors.primary, 0.2)};
+  border: ${(props) => rgba(props.theme.colors.primary, 0.35)};
   transition:
     background 0.3s ease,
     border 0.3s ease,
@@ -24,8 +24,8 @@ export const Control = styled.input`
   padding: 8px 16px;
   line-height: 25px;
   font-weight: 500;
-  border: 1px solid #cdd9ed;
-  background: #fff;
+  border: 1px solid ${(props) => rgba(props.theme.colors.primary, 0.35)};
+  background: ${(props) => props.theme.colors.alpha};
   transition: border 0.3s ease;
   z-index: 1;
   flex: 1 1 auto;
@@ -36,11 +36,11 @@ export const Control = styled.input`
   border-radius: 0 6px 6px 0;
 
   &::placeholder {
-    color: #cbd1dc;
+    color: ${(props) => props.theme.colors.neutral};
   }
   &:focus {
     outline: none;
-    border-color: #275efe;
+    border-color: ${(props) => props.theme.colors.primary};
   }
 `
 
@@ -49,9 +49,9 @@ export const InputGroup = styled.div`
 
   &:focus-within {
     & > ${Adornment} {
-      color: #fff;
-      background: #678efe;
-      border-color: #275efe;
+      color: ${(props) => props.theme.colors.alpha};
+      background: ${(props) => rgba(props.theme.colors.primary, 0.65)};
+      border-color: ${(props) => props.theme.colors.primary};
     }
   }
 `
@@ -63,6 +63,6 @@ export const Wrapper = styled.div`
 export const Error = styled.div`
   font-size: 12px;
   margin-top: 10px;
-  color: #ba3939;
+  color: ${(props) => props.theme.colors.error};
   text-indent: 10px;
 `

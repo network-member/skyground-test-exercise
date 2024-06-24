@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 export const Button = styled.button`
   width: 100%;
-  background-color: #678efe;
+  background-color: ${(props) => rgba(props.theme.colors.primary, 0.65)};
   border-radius: 6px;
   border-style: none;
   box-sizing: border-box;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.alpha};
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -25,6 +25,14 @@ export const Button = styled.button`
   touch-action: manipulation;
 
   &:hover {
-    background-color: ${rgba('#678efe', 0.85)};
+    background-color: ${(props) => rgba(props.theme.colors.primary, 0.55)};
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default;
+    &:hover {
+      background-color: ${(props) => rgba(props.theme.colors.primary, 0.65)};
+    }
   }
 `

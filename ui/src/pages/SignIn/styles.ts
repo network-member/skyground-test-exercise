@@ -27,6 +27,6 @@ export const FormContainer = styled.form`
 
 export const SubmitError = styled.div`
   font-size: 12px;
-  color: #ba3939;
+  color: ${(props) => props.theme.colors.error};
   white-space: pre-wrap;
 `

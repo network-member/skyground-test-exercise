@@ -4,16 +4,16 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { GlobalStyles } from './components/GlobalStyles'
 import { PrivateRoute } from './components/PrivateRoute'
+import { ThemeProvider } from './components/ThemeProvider'
 import { HomePage } from './pages/HomePage'
 import { SignInPage } from './pages/SignIn'
 import { SignUpPage } from './pages/SignUp'
-import { Container } from './styles'
 
 const App: FC = () => {
   return (
     <>
       <GlobalStyles />
-      <Container>
+      <ThemeProvider>
         <Routes>
           <Route
             path="/"
@@ -27,7 +27,7 @@ const App: FC = () => {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </Container>
+      </ThemeProvider>
     </>
   )
 }

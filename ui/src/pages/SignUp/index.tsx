@@ -12,6 +12,7 @@ import { Wrapper, Container, FormContainer, SubmitError } from './styles'
 
 export function SignUpPage(): ReactElement {
   const signUp = useSignUpFormAction()
+
   return (
     <Wrapper>
       <Container>
